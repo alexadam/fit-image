@@ -213,10 +213,13 @@ export default class Playground extends Component {
             }}
             >
         <Layer
-        ref={node => {
-          this.layer = node;
-        }}>
-            <Rect x="0" y="0" width={this.props.width} height={this.props.height} fill={this.props.backgroundColor}/>
+            ref={node => {
+              this.layer = node;
+            }}>
+            <Rect x="0" y="0" name="background"
+                    width={this.props.width}
+                    height={this.props.height}
+                    fill={this.props.backgroundColor}/>
             <ImageGroup src={this.props.inputImages[0]}
                 groupName="group1"
                 width={this.props.width}

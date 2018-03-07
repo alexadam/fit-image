@@ -37,16 +37,7 @@ export default class Menu extends React.Component {
         this.props.onTargetDimsChanged(newDims)
     }
 
-    // onWidthChange = (event) => {
-    //
-    // }
-    // onHeightChange = () => {
-    //
-    // }
-
     render = () => {
-        // <label>Width:</label><input type="number" value={this.state.targetWidth} onChange={this.onWidthChange}/>
-        // <label>Height:</label><input type="number" value={this.state.targetHeight} onChange={this.onHeightChange}/>
         return (
             <div className="menu">
                 <div>
@@ -65,10 +56,13 @@ export default class Menu extends React.Component {
                     <input type="file" onChange={this.onFileUpload} />
                 </div>
                 <div>
-                    <button onClick={this.props.onSave}>Save...</button>
+                    <label>Background Color:</label><input type="color" onChange={this.props.onBgColorChange} />
                 </div>
                 <div>
                     <button onClick={this.props.onFit}>Fit</button>
+                </div>
+                <div>
+                    <button onClick={this.props.onSave}>Save...</button>
                 </div>
             </div>
         )

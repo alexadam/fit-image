@@ -48,6 +48,9 @@ export default class FitImage extends React.Component {
         })
         // this.Konva.onResizeTarget()
     }
+    onBgColorChange = (newColor) => {
+        this.setState({backgroundColor: newColor.target.value + ''})
+    }
 
     render = () => {
         let width = window.innerWidth
@@ -68,6 +71,7 @@ export default class FitImage extends React.Component {
                         onSave={this.onSave}
                         onFit={this.onFit}
                         onTargetDimsChanged={this.onTargetDimsChanged}
+                        onBgColorChange={this.onBgColorChange}
                         />
             </div>
 
