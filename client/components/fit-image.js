@@ -10,12 +10,11 @@ export default class FitImage extends React.Component {
     state = {
         targetWidth: 800,
         targetHeight: 600,
-        backgroundColor: "#000000",
+        backgroundColor: "#ffffff",
         inputImages: []
     }
 
     onNewFile = (newFile) => {
-        console.log(newFile);
         this.setState({
             inputImages: [newFile]
         })
@@ -40,13 +39,15 @@ export default class FitImage extends React.Component {
     onFit = () => {
         this.Konva.fitImage(true)
     }
+    onCenter = () => {
+        this.Konva.centerImage()
+    }
 
     onTargetDimsChanged = (newDims) => {
         this.setState({
             targetWidth: newDims.width,
             targetHeight: newDims.height
         })
-        // this.Konva.onResizeTarget()
     }
     onBgColorChange = (newColor) => {
         this.setState({backgroundColor: newColor.target.value + ''})
@@ -58,6 +59,13 @@ export default class FitImage extends React.Component {
 
         return (
             <div id="container" className="container">
+                <Menu onNewFile={this.onNewFile}
+                    onSave={this.onSave}
+                    onFit={this.onFit}
+                    onTargetDimsChanged={this.onTargetDimsChanged}
+                    onBgColorChange={this.onBgColorChange}
+                    onCenter={this.onCenter}
+                    />
                 <div className="konva-container">
                     <Playground width={this.state.targetWidth} height={this.state.targetHeight}
                     backgroundColor={this.state.backgroundColor}
@@ -67,12 +75,7 @@ export default class FitImage extends React.Component {
                     }}
                     />
                 </div>
-                <Menu onNewFile={this.onNewFile}
-                        onSave={this.onSave}
-                        onFit={this.onFit}
-                        onTargetDimsChanged={this.onTargetDimsChanged}
-                        onBgColorChange={this.onBgColorChange}
-                        />
+
             </div>
 
         )

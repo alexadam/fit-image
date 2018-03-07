@@ -74,6 +74,8 @@ class Handler extends Component {
 
 class ImageGroup extends Component {
     render = () => {
+        if (!this.props.src) return null
+
         return (
             <Group draggable="true"
                 name={this.props.groupName}
@@ -192,20 +194,92 @@ export default class Playground extends Component {
     }
 
     fitImage = (isFit) => {
-        //TODO
-        this.onDragMove("group1", {
-            getName: () => "bottomRight",
-            getX: () => this.props.width,
-            getY: () => this.props.height,
+        let group = this.layer.get('.' + "group1")[0]
+        let topLeft = group.get('.topLeft')[0];
+        let topRight = group.get('.topRight')[0];
+        let bottomRight = group.get('.bottomRight')[0];
+        let bottomLeft = group.get('.bottomLeft')[0];
+        let image = group.get('Image')[0];
+
+        group.position(
+            {
+                x: 0,
+                y: 0
+            }
+        )
+
+        topLeft.position({
+            x: 0,
+            y: 0
+        })
+        topRight.position({
+            x: this.props.width,
+            y: 0
+        })
+        bottomRight.position({
+            x: this.props.width,
+            y: this.props.height
+        })
+        bottomLeft.position({
+            x: 0,
+            y: this.props.height
         })
 
-        this.onLoad("group1")
+        image.position(topLeft.position());
+        image.width(this.props.width)
+        image.height(this.props.height)
 
+        group.moveToTop()
+
+        this.layer.draw()
+
+    }
+
+    centerImage = () => {
+        let group = this.layer.get('.' + "group1")[0]
+        let topLeft = group.get('.topLeft')[0];
+        let topRight = group.get('.topRight')[0];
+        let bottomRight = group.get('.bottomRight')[0];
+        let bottomLeft = group.get('.bottomLeft')[0];
+        let image = group.get('Image')[0];
+        let width = image.width()
+        let height = image.height()
+
+        group.position(
+            {
+                x: 0,
+                y: 0
+            }
+        )
+
+        topLeft.position({
+            x: this.props.width/2 - width/2,
+            y: this.props.height/2 - height/2
+        })
+        topRight.position({
+            x: this.props.width/2 + width/2,
+            y: this.props.height/2 - height/2
+        })
+        bottomRight.position({
+            x: this.props.width/2 + width/2,
+            y: this.props.height/2 + height/2
+        })
+        bottomLeft.position({
+            x: this.props.width/2 - width/2,
+            y: this.props.height/2 + height/2
+        })
+
+        image.position(topLeft.position());
+        group.moveToTop()
+
+        this.layer.draw()
     }
 
   render() {
     return (
-      <Stage width={this.props.width}
+      <Stage
+        className="konva-stage"
+        width={this.props.width}
             height={this.props.height}
             backgroundColor={this.props.backgroundColor}
             ref={node => {

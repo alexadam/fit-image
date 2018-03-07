@@ -33,36 +33,34 @@ export default class Menu extends React.Component {
             width: this.tWidth.value,
             height: this.tHeight.value
         }
-        console.log('new sims', newDims);
         this.props.onTargetDimsChanged(newDims)
     }
 
     render = () => {
         return (
             <div className="menu">
-                <div>
-                    <label>Target Dimensions</label>
+                <div className="menu-group">
+                    <label className="menu-label">Target Width:</label>
+                    <input type="number" className="menu-number-input" ref={(c)=>this.tWidth=c} />
+                    <label className="menu-label">Target Height:</label>
+                    <input type="number" className="menu-number-input" ref={(c)=>this.tHeight=c}/>
+                    <button className="menu-button" onClick={this.onDimenstionsChanged}>Apply</button>
                 </div>
-                <div>
-                    <label>Width:</label><input type="number" ref={(c)=>this.tWidth=c} />
+                <div className="menu-group">
+                    <input type="file" className="menu-button menu-file-input" onChange={this.onFileUpload} />
                 </div>
-                <div>
-                    <label>Height:</label><input type="number" ref={(c)=>this.tHeight=c}/>
+                <div className="menu-group">
+                    <label className="menu-label">Background Color:</label>
+                    <input type="color" className="menu-button" onChange={this.props.onBgColorChange} />
                 </div>
-                <div>
-                    <button onClick={this.onDimenstionsChanged}>Apply</button>
+                <div className="menu-group">
+                    <button className="menu-button" onClick={this.props.onFit}>Fit</button>
                 </div>
-                <div>
-                    <input type="file" onChange={this.onFileUpload} />
+                <div className="menu-group">
+                    <button className="menu-button" onClick={this.props.onCenter}>Center</button>
                 </div>
-                <div>
-                    <label>Background Color:</label><input type="color" onChange={this.props.onBgColorChange} />
-                </div>
-                <div>
-                    <button onClick={this.props.onFit}>Fit</button>
-                </div>
-                <div>
-                    <button onClick={this.props.onSave}>Save...</button>
+                <div className="menu-group">
+                    <button className="menu-button" onClick={this.props.onSave}>Save...</button>
                 </div>
             </div>
         )
