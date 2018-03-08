@@ -4,8 +4,7 @@ A simple tool to embed a screenshot in an image that meets some size constraints
 
 ![demo](demo.png?raw=true "Demo")
 
-## **Demo**
-
+![**Demo**](https://alexadam.github.io/demos/fit-image/index.html)
 
 ## Why?
 
