@@ -1,8 +1,8 @@
 # fit-image
 
-## A simple tool to embed a screenshot in an image that meets some size constraints
+A simple tool to embed a screenshot in an image that meets some size constraints
 
-[[https://github.com/alexadam/fit-image/blob/master/demo.png|alt=demo]]
+![demo](demo.png?raw=true "Demo")
 
 ## **Demo**
 
