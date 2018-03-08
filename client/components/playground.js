@@ -289,6 +289,12 @@ export default class Playground extends Component {
         this.layer.draw()
     }
 
+    changeBgColor = (newColor) => {
+        let rect = this.layer.get(".background")[0]
+        rect.fill(newColor)
+        this.layer.draw()
+    }
+
   render() {
     return (
       <Stage
@@ -307,7 +313,8 @@ export default class Playground extends Component {
             <Rect x="0" y="0" name="background"
                     width={this.props.width}
                     height={this.props.height}
-                    fill={this.props.backgroundColor}/>
+                    fill={this.props.backgroundColor}
+                    />
             <ImageGroup src={this.props.inputImages[0]}
                 groupName="group1"
                 width={this.props.width}
