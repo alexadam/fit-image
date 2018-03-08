@@ -7,7 +7,8 @@ export default class Menu extends React.Component {
 
     state = {
         targetWidth: 800,
-        targetHeight: 600
+        targetHeight: 600,
+        backgroundColor: '#ffffff'
     }
 
     componentDidMount = () => {
@@ -36,6 +37,15 @@ export default class Menu extends React.Component {
         this.props.onTargetDimsChanged(newDims)
     }
 
+    onBgColorChange = (event) => {
+        let color = event.target.value + ''
+        console.log('new v col', color);
+        this.setState({
+            backgroundColor: color
+        })
+        this.props.onBgColorChange(color)
+    }
+
     render = () => {
         return (
             <div className="menu">
@@ -51,7 +61,7 @@ export default class Menu extends React.Component {
                 </div>
                 <div className="menu-group">
                     <label className="menu-label">Background Color:</label>
-                    <input type="color" className="menu-button" onChange={this.props.onBgColorChange} />
+                    <input type="color" className="menu-button" value={this.state.backgroundColor} onChange={this.onBgColorChange} />
                 </div>
                 <div className="menu-group">
                     <button className="menu-button" onClick={this.props.onFit}>Fit</button>

@@ -50,7 +50,7 @@ export default class FitImage extends React.Component {
         })
     }
     onBgColorChange = (newColor) => {
-        this.setState({backgroundColor: newColor.target.value + ''})
+        this.setState({backgroundColor: newColor})
     }
 
     render = () => {

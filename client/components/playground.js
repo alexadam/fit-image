@@ -103,6 +103,20 @@ class ImageGroup extends Component {
 }
 
 export default class Playground extends Component {
+    constructor(props) {
+        super(props)
+    }
+
+    componentDidUpdate = (prevProps, prevState) => {
+        let group = this.layer.get('.' + "group1")[0]
+        if (!group) return
+
+        let image = group.get('Image')[0];
+        if (!image) return
+
+        image.position({x: 0, y: 0})
+        this.layer.draw()
+    }
 
     onDragMove = (groupName, activeAnchor) => {
         let group = this.layer.get('.' + groupName)[0]
