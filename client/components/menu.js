@@ -39,7 +39,6 @@ export default class Menu extends React.Component {
 
     onBgColorChange = (event) => {
         let color = event.target.value + ''
-        console.log('new v col', color);
         this.setState({
             backgroundColor: color
         })

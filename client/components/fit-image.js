@@ -27,9 +27,7 @@ export default class FitImage extends React.Component {
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-            //delete link;
         }
-
 
     onSave = () => {
         let dataUrl = this.Konva.getDataURL()
@@ -50,7 +48,9 @@ export default class FitImage extends React.Component {
         })
     }
     onBgColorChange = (newColor) => {
-        this.Konva.changeBgColor(newColor)
+        this.setState({
+            backgroundColor: newColor
+        })
     }
 
     render = () => {

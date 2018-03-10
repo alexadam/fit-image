@@ -107,17 +107,6 @@ export default class Playground extends Component {
         super(props)
     }
 
-    componentDidUpdate = (prevProps, prevState) => {
-        let group = this.layer.get('.' + "group1")[0]
-        if (!group) return
-
-        let image = group.get('Image')[0];
-        if (!image) return
-
-        image.position({x: 0, y: 0})
-        this.layer.draw()
-    }
-
     onDragMove = (groupName, activeAnchor) => {
         let group = this.layer.get('.' + groupName)[0]
         let topLeft = group.get('.topLeft')[0];
@@ -167,18 +156,26 @@ export default class Playground extends Component {
         let image = group.get('Image')[0];
         let width = image.width()
         let height = image.height()
+        let topLeft = group.get('.topLeft')[0];
         let topRight = group.get('.topRight')[0];
         let bottomRight = group.get('.bottomRight')[0];
         let bottomLeft = group.get('.bottomLeft')[0];
 
-        topRight.setX(width)
-        topRight.setY(0)
+        let imgPos = image.position()
+        let px = imgPos.x
+        let py = imgPos.y
 
-        bottomRight.setX(width)
-        bottomRight.setY(height)
+        topLeft.setX(px)
+        topLeft.setY(py)
 
-        bottomLeft.setX(0)
-        bottomLeft.setY(height)
+        topRight.setX(px + width)
+        topRight.setY(py)
+
+        bottomRight.setX(px + width)
+        bottomRight.setY(py + height)
+
+        bottomLeft.setX(px)
+        bottomLeft.setY(py + height)
     }
 
     getDataURL = () => {
