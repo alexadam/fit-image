@@ -195,7 +195,7 @@ export default class Playground extends Component {
 
         this.layer.draw()
 
-        let dataUrl = this.stage.getStage().toDataURL()
+        let dataUrl = this.layer.toDataURL()
 
         topLeft.setVisible(true)
         topRight.setVisible(true)
