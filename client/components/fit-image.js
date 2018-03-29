@@ -10,8 +10,32 @@ export default class FitImage extends React.Component {
     state = {
         targetWidth: 800,
         targetHeight: 600,
+        scaleWidth: 800,
+        scaleHeight: 600,
+        scaleFactor: 1,
         backgroundColor: "#ffffff",
         inputImages: []
+    }
+
+    componentDidMount = () => {
+        window.addEventListener('resize', this.resizeKonva);
+        this.resizeKonva()
+    }
+
+    resizeKonva = () => {
+        let container = document.querySelector('#container');
+        let containerWidth = container.offsetWidth;
+        let scale = containerWidth / this.state.targetWidth;
+
+        if (scale >= 1) scale = 1;
+
+        this.Konva.scaleStageResponsive(scale)
+
+        this.setState({
+            scaleWidth: this.state.targetWidth * scale,
+            scaleHeight: this.state.targetHeight * scale,
+            scaleFactor: scale
+        })
     }
 
     onNewFile = (newFile) => {
@@ -44,7 +68,9 @@ export default class FitImage extends React.Component {
     onTargetDimsChanged = (newDims) => {
         this.setState({
             targetWidth: newDims.width,
-            targetHeight: newDims.height
+            targetHeight: newDims.height,
+            scaleWidth: newDims.width * this.state.scaleFactor,
+            scaleHeight: newDims.height * this.state.scaleFactor
         })
     }
     onBgColorChange = (newColor) => {
@@ -67,7 +93,9 @@ export default class FitImage extends React.Component {
                     onCenter={this.onCenter}
                     />
                 <div className="konva-container">
-                    <Playground width={this.state.targetWidth} height={this.state.targetHeight}
+                    <Playground
+                    width={this.state.scaleWidth} height={this.state.scaleHeight}
+                    targetWidth={this.state.targetWidth} targetHeight={this.state.targetHeight}
                     backgroundColor={this.state.backgroundColor}
                     inputImages={this.state.inputImages}
                     ref={node => {

@@ -8,12 +8,8 @@ export default class Menu extends React.Component {
     state = {
         targetWidth: 800,
         targetHeight: 600,
-        backgroundColor: '#ffffff'
-    }
-
-    componentDidMount = () => {
-        this.tWidth.value = 800
-        this.tHeight.value = 600
+        backgroundColor: '#ffffff',
+        expanded: false
     }
 
     onFileUpload = () => {
@@ -31,8 +27,8 @@ export default class Menu extends React.Component {
 
     onDimenstionsChanged = () => {
         let newDims = {
-            width: this.tWidth.value,
-            height: this.tHeight.value
+            width: this.state.targetWidth,
+            height: this.state.targetHeight
         }
         this.props.onTargetDimsChanged(newDims)
     }
@@ -45,14 +41,35 @@ export default class Menu extends React.Component {
         this.props.onBgColorChange(color)
     }
 
+    toggleExpand = () => {
+        this.setState({
+            expanded: !this.state.expanded
+        })
+    }
+
+    onWidthChange = (e) => {
+        this.setState({
+            targetWidth: e.target.value
+        })
+    }
+    onHeightChange = (e) => {
+        this.setState({
+            targetHeight: e.target.value
+        })
+    }
+
     render = () => {
-        return (
-            <div className="menu">
+        let menu = <button onClick={this.toggleExpand}>Options...</button>
+
+        // <input type="number" className="menu-number-input" ref={(c)=>this.tWidth=c} />
+        if (this.state.expanded) {
+            menu = <div className="menu">
+                <button onClick={this.toggleExpand}>Options...</button>
                 <div className="menu-group">
                     <label className="menu-label">Target Width:</label>
-                    <input type="number" className="menu-number-input" ref={(c)=>this.tWidth=c} />
+                    <input type="number" className="menu-number-input" onChange={this.onWidthChange} value={this.state.targetWidth}/>
                     <label className="menu-label">Target Height:</label>
-                    <input type="number" className="menu-number-input" ref={(c)=>this.tHeight=c}/>
+                    <input type="number" className="menu-number-input" onChange={this.onHeightChange} value={this.state.targetHeight}/>
                     <button className="menu-button" onClick={this.onDimenstionsChanged}>Apply</button>
                 </div>
                 <div className="menu-group">
@@ -71,6 +88,12 @@ export default class Menu extends React.Component {
                 <div className="menu-group">
                     <button className="menu-button" onClick={this.props.onSave}>Save...</button>
                 </div>
+            </div>
+        }
+
+        return (
+            <div>
+                {menu}
             </div>
         )
     }

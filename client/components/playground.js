@@ -179,6 +179,17 @@ export default class Playground extends Component {
     }
 
     getDataURL = () => {
+        let scale = this.props.targetWidth / this.props.width
+        let scaleW = this.props.targetWidth / this.props.width
+        let scaleH = this.props.targetHeight / this.props.height
+
+        if (scale > 1) {
+            this.stage.getStage().width(this.props.targetWidth)
+            this.stage.getStage().height(this.props.targetHeight)
+            this.stage.getStage().scale({ x: scale, y: scale });
+            this.stage.getStage().draw();
+        }
+
         let group = this.layer.get('.' + "group1")[0]
         let topLeft = group.get('.topLeft')[0];
         let topRight = group.get('.topRight')[0];
@@ -200,6 +211,13 @@ export default class Playground extends Component {
         bottomLeft.setVisible(true)
 
         this.layer.draw()
+
+        if (scale > 1) {
+            this.stage.getStage().width(this.props.width)
+            this.stage.getStage().height(this.props.height)
+            this.stage.getStage().scale({ x: 1, y: 1 });
+            this.stage.getStage().draw();
+        }
 
         return dataUrl
     }
@@ -292,12 +310,27 @@ export default class Playground extends Component {
         this.layer.draw()
     }
 
+    scaleStageResponsive = (scale) => {
+        // this.stage.getStage().width(this.props.width)
+        // this.stage.getStage().height(this.props.height)
+        // this.stage.getStage().draw();
+        // this.stage.getStage().scale({ x: scale, y: scale });
+        // this.stage.getStage().draw();
+        // this.layer.draw()
+        // let group = this.layer.get('.' + "group1")[0]
+        // if (!group) return
+        // group.scale({ x: scale, y: scale })
+        // this.layer.draw()
+    }
+
   render() {
     return (
       <Stage
         className="konva-stage"
-        width={this.props.width}
+            width={this.props.width}
             height={this.props.height}
+            targetWidth={this.props.targetWidth}
+            targetHeight={this.props.targetHeight}
             backgroundColor={this.props.backgroundColor}
             ref={node => {
               this.stage = node;
