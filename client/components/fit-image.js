@@ -12,7 +12,8 @@ export default class FitImage extends React.Component {
         targetHeight: 600,
         scaleWidth: 800,
         scaleHeight: 600,
-        scaleFactor: 1,
+        scaleFactorH: 1,
+        scaleFactorW: 1,
         backgroundColor: "#ffffff",
         inputImages: []
     }
@@ -22,19 +23,29 @@ export default class FitImage extends React.Component {
         this.resizeKonva()
     }
 
-    resizeKonva = () => {
+    resizeKonva = (event, targetW = this.state.targetWidth, targetH = this.state.targetHeight) => {
         let container = document.querySelector('#container');
-        let containerWidth = container.offsetWidth;
-        let scale = containerWidth / this.state.targetWidth;
+        let scale = 1;
 
-        if (scale >= 1) scale = 1;
+        let scaleW = container.offsetWidth / targetW;
+        let scaleH = container.offsetHeight / targetH;
+
+        if (scaleW >= 1) scaleW = 1;
+        if (scaleH >= 1) scaleH = 1;
+
+        if (targetW > targetH) {
+            scaleH = scaleW
+        } else {
+            scaleW = scaleH
+        }
 
         this.Konva.scaleStageResponsive(scale)
 
         this.setState({
-            scaleWidth: this.state.targetWidth * scale,
-            scaleHeight: this.state.targetHeight * scale,
-            scaleFactor: scale
+            scaleWidth: targetW * scaleW,
+            scaleHeight: targetH * scaleH,
+            scaleFactorW: scaleW,
+            scaleFactorH: scaleH,
         })
     }
 
@@ -69,9 +80,10 @@ export default class FitImage extends React.Component {
         this.setState({
             targetWidth: newDims.width,
             targetHeight: newDims.height,
-            scaleWidth: newDims.width * this.state.scaleFactor,
-            scaleHeight: newDims.height * this.state.scaleFactor
+            scaleWidth: newDims.width * this.state.scaleFactorW,
+            scaleHeight: newDims.height * this.state.scaleFactorH
         })
+        this.resizeKonva(null, newDims.width, newDims.height)
     }
     onBgColorChange = (newColor) => {
         this.setState({

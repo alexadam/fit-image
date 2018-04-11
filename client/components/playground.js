@@ -151,11 +151,29 @@ export default class Playground extends Component {
         this.layer.draw()
     }
 
-    onLoad = (groupName) => {
+    onLoad = (groupName, originalDims) => {
         let group = this.layer.get('.' + groupName)[0]
         let image = group.get('Image')[0];
         let width = image.width()
         let height = image.height()
+
+        let initRatio = width / height
+
+        if (this.props.width > width) {
+            let diff = this.props.width * originalDims.width / this.props.targetWidth
+            image.width(diff)
+            image.height(diff / initRatio)
+        }
+
+        if (this.props.height > height) {
+            let diff = this.props.height * originalDims.height / this.props.targetHeight
+            image.height(diff)
+            image.width(diff * initRatio)
+        }
+
+        width = image.width()
+        height = image.height()
+
         let topLeft = group.get('.topLeft')[0];
         let topRight = group.get('.topRight')[0];
         let bottomRight = group.get('.bottomRight')[0];
@@ -191,6 +209,18 @@ export default class Playground extends Component {
         }
 
         let group = this.layer.get('.' + "group1")[0]
+
+        if (!group) {
+            let dataUrl = this.layer.toDataURL()
+            if (scale > 1) {
+                this.stage.getStage().width(this.props.width)
+                this.stage.getStage().height(this.props.height)
+                this.stage.getStage().scale({ x: 1, y: 1 });
+                this.stage.getStage().draw();
+            }
+            return dataUrl
+        }
+
         let topLeft = group.get('.topLeft')[0];
         let topRight = group.get('.topRight')[0];
         let bottomRight = group.get('.bottomRight')[0];
