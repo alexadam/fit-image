@@ -13,16 +13,16 @@ export default class Menu extends React.Component {
     }
 
     onFileUpload = () => {
-        let file    = document.querySelector('input[type=file]').files[0];
-        let reader  = new FileReader();
+        let file = document.querySelector('input[type=file]').files[0];
+        let reader = new FileReader();
 
         reader.addEventListener("load", () => {
-            this.props.onNewFile(reader.result)
-          }, false);
+            this.props.onNewFile(reader.result, file.name)
+        }, false);
 
-          if (file) {
+        if (file) {
             reader.readAsDataURL(file);
-          }
+        }
     }
 
     onDimenstionsChanged = () => {
@@ -61,7 +61,6 @@ export default class Menu extends React.Component {
     render = () => {
         let menu = <button onClick={this.toggleExpand}>Options...</button>
 
-        // <input type="number" className="menu-number-input" ref={(c)=>this.tWidth=c} />
         if (this.state.expanded) {
             menu = <div className="menu">
                 <button onClick={this.toggleExpand}>Options...</button>
@@ -73,7 +72,8 @@ export default class Menu extends React.Component {
                     <button className="menu-button" onClick={this.onDimenstionsChanged}>Apply</button>
                 </div>
                 <div className="menu-group">
-                    <input type="file" className="menu-button menu-file-input" onChange={this.onFileUpload} />
+                    <span>{this.props.inputImagesName[0] ? this.props.inputImagesName[0] : ''}</span>
+                    <label className="menu-button">Open file...<input type="file" className="menu-button menu-file-input" onChange={this.onFileUpload} /></label>
                 </div>
                 <div className="menu-group">
                     <label className="menu-label">Background Color:</label>

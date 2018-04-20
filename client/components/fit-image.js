@@ -15,7 +15,8 @@ export default class FitImage extends React.Component {
         scaleFactorH: 1,
         scaleFactorW: 1,
         backgroundColor: "#ffffff",
-        inputImages: []
+        inputImages: [],
+        inputImagesName: []
     }
 
     componentDidMount = () => {
@@ -49,9 +50,10 @@ export default class FitImage extends React.Component {
         })
     }
 
-    onNewFile = (newFile) => {
+    onNewFile = (newFile, newFileName) => {
         this.setState({
-            inputImages: [newFile]
+            inputImages: [newFile],
+            inputImagesName: [newFileName]
         })
     }
 
@@ -103,6 +105,7 @@ export default class FitImage extends React.Component {
                     onTargetDimsChanged={this.onTargetDimsChanged}
                     onBgColorChange={this.onBgColorChange}
                     onCenter={this.onCenter}
+                    inputImagesName={this.state.inputImagesName}
                     />
                 <div className="konva-container">
                     <Playground

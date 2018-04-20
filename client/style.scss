@@ -80,7 +80,15 @@ html, body {
     min-width: $fontSize * 5;
 }
 .menu-file-input {
-    max-width: 400px;
+    width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+.menu-file-input + label {
+    cursor: pointer;
 }
 .menu-button {
     font-size: $fontSize;
@@ -95,7 +103,9 @@ html, body {
     // height: 80%;
     font-weight: bold;
 }
-
+.menu-button:hover {
+    background-color: gray;
+}
 
 .konva-container {
     flex-grow: 2;
