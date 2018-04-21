@@ -88,9 +88,18 @@ export default class FitImage extends React.Component {
         this.resizeKonva(null, newDims.width, newDims.height)
     }
     onBgColorChange = (newColor) => {
+        this.Konva.changeBgColor(newColor)
         this.setState({
             backgroundColor: newColor
         })
+
+    }
+
+    shouldComponentUpdate = (nextProps, nextState) => {
+        if (nextState.backgroundColor !== this.state.backgroundColor) {
+            return false
+        }
+        return true
     }
 
     render = () => {

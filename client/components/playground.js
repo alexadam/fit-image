@@ -73,6 +73,13 @@ class Handler extends Component {
 }
 
 class ImageGroup extends Component {
+    shouldComponentUpdate = (nextProps) => {
+        if (nextProps.targetWidth !== this.props.targetWidth || nextProps.targetHeight !== this.props.targetHeight) {
+            return false
+        }
+        return true
+    }
+
     render = () => {
         if (!this.props.src) return null
 
@@ -379,6 +386,8 @@ export default class Playground extends Component {
                 groupName="group1"
                 width={this.props.width}
                 height={this.props.height}
+                targetWidth={this.props.targetWidth}
+                targetHeight={this.props.targetHeight}
                 onLoad={this.onLoad}
                 onDragMove={this.onDragMove}
                 ref={node => {
