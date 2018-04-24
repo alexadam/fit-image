@@ -12,6 +12,10 @@ Because every time I have to upload a new version of [Save as eBook](https://git
 the screenshots must have a certain size. Instead of wasting time trying to do a perfect screenshot, I prefer
 to do a "random" screenshot and embed it in an image that meets those constraints.
 
+## Notes
+
+It does not work very well on mobile devices and it has some bugs
+
 ## Credits
 
 [Konva](https://konvajs.github.io/)
