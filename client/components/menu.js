@@ -9,7 +9,7 @@ export default class Menu extends React.Component {
         targetWidth: 800,
         targetHeight: 600,
         backgroundColor: '#ffffff',
-        expanded: false
+        expanded: true
     }
 
     onFileUpload = () => {
